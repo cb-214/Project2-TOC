@@ -31,4 +31,20 @@ def parse_csv(file_path):
         'transitions': transitions, }
 
 def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as ntm_trace.py program given though I just didnt understand the 'cite' comments
+    #perform BFS of NTM
+    print(f"Tracing NTM:  {machine["name"]} on input '{input_string}'")
+    initial_config = (machine['start_state'], input_string, 0) #DIFFERERNT from given prog. (state, input_string, head_location)
+    tree = [[initial_config]] #list of list of configs
+
+    while tree: #will need to iterate throuhg eavery configuration
     
+    
+    #TBD test code/program
+    machine_input = input('Select file to run\n') #user types
+    m = f'input/{machine_input}'
+    max_depth = 10
+    machine = parse_csv(machine_input)
+
+
+
+
