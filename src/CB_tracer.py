@@ -35,6 +35,16 @@ def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as nt
     print(f"Tracing NTM:  {machine["name"]} on input '{input_string}'")
     initial_config = (machine['start_state'], input_string, 0) #DIFFERERNT from given prog. (state, input_string, head_location)
     tree = [[initial_config]] #list of list of configs
+    accept_state = machine['accept_state']
+    reject_state = machine['reject_state']
+    transitions = machine ['transitions']
+
+    #Vars that will change after going through tree
+    total_configs, total_transitions = 0
+    accept_configs, reject_configs =0
+    curr_depth =0
+    transition_log = []
+    branch_points =0 #keep track of how many states had more than 1 possible transition (Nondeterminisitc bracnhign points/level of nondeterminism)
 
 
     while tree: #will need to iterate throuhg eavery configuration
@@ -42,10 +52,14 @@ def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as nt
         next_level = []
         print(f"Depth {curr_depth}, Current Level:  {len(curr_level)} configurations")
         for state, tape, head_position in curr_level:
+            total_configs +=1 #keep track of processed configs
             #iterate through level and check if accept/reject to proceed
             if state ==accept_state:
-                
+                accept_configs+=1
+                #MORE TBD
             if state ==reject_state:
+                reject_configs +=1
+                continue 
 
     #TBD test code/program
     machine_input = input('Select file to run\n') #user types
