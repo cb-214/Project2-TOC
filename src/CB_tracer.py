@@ -32,7 +32,7 @@ def parse_csv(file_path):
 
 def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as ntm_trace.py program given though I just didnt understand the 'cite' comments
     #perform BFS of NTM
-    print(f"Tracing NTM:  {machine["name"]} on input '{input_string}'")
+    print(f"Tracing NTM: {machine['name']} on input '{input_string}'")
     initial_config = (machine['start_state'], input_string, 0) #DIFFERERNT from given prog. (state, input_string, head_location)
     tree = [[initial_config]] #list of list of configs
     accept_state = machine['accept_state']
@@ -56,10 +56,34 @@ def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as nt
             #iterate through level and check if accept/reject to proceed
             if state ==accept_state:
                 accept_configs+=1
-                #MORE TBD
+                print("\n String is accepted!")
+                print(f"Accepted at depth: {curr_depth}")
+                print(f"Total configurations: {total_configs}")
+                print(f"Accepted configurations: {accept_configs}")
+                print(f"Rejected configurations: {reject_configs}")
+                print(f"Level of nondeterminism: {total_transitions/(branch_points or 1):.2f}")
+                print("\nTransition Log:")
+                for t in transition_log:
+                    print(" ", t)
+                return curr_depth
+
             if state ==reject_state:
                 reject_configs +=1
                 continue 
+            #determine current read symbol
+            if 0 <= head_position <len(tape):
+                head_char = tape[head_position]   
+            else:
+                head_char = "_"   #blank if go beyond tape       
+
+            possible = transitions.get((state,head_char),[]) #possible transitions for the state and symbol/char
+            # count nondeterminism 
+            if len(possible) >1:
+                branch_points += 1
+            #generate nxt configuraions for THIS config
+            #TBD
+
+            
 
     #TBD test code/program
     machine_input = input('Select file to run\n') #user types
