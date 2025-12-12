@@ -87,23 +87,28 @@ def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as nt
                 tape_list = list(tape)
 
                 #write symbol
-
+                if 0 <= head_position < len(tape_list):
+                    tape_list[head_position]=write_char
+                else: #headis beyond the tape --need to extend
+                    tape_list.append(write_char)
                 #move head L or R
+                if move_direction == 'R': #usually we always go right first
+                    update_head = head_position +1
+                else:
+                    update_head =head_position-1
 
                 #convert tape back to strign
-
+                new_tape = ''.join(tape_list)
                 #save new config
+                next_config= (next_state,new_tape, update_head)
+                next_level.append(next_config)
                 #log the transiton
-                
+                transition_log.append(f"({state}, {head_char}) -> ({next_state}, {write_char},  {move_direction})")
 
-            
+            total_transitions +=len(possible)
 
     #TBD test code/program
     machine_input = input('Select file to run\n') #user types
     m = f'input/{machine_input}'
     max_depth = 10
     machine = parse_csv(machine_input)
-
-
-
-
