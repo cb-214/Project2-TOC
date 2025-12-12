@@ -36,9 +36,17 @@ def ntm_tracer(machine, input_string, max_depth=None): #follows same logic as nt
     initial_config = (machine['start_state'], input_string, 0) #DIFFERERNT from given prog. (state, input_string, head_location)
     tree = [[initial_config]] #list of list of configs
 
+
     while tree: #will need to iterate throuhg eavery configuration
-    
-    
+        curr_level = tree.pop(0)
+        next_level = []
+        print(f"Depth {curr_depth}, Current Level:  {len(curr_level)} configurations")
+        for state, tape, head_position in curr_level:
+            #iterate through level and check if accept/reject to proceed
+            if state ==accept_state:
+                
+            if state ==reject_state:
+
     #TBD test code/program
     machine_input = input('Select file to run\n') #user types
     m = f'input/{machine_input}'
