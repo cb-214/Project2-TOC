@@ -1,4 +1,4 @@
-#This is a program that is meant to do the same thing as ntm_tracer.py but in a different manner
+#This is a program that is meant to do the same thing as ntm_tracer.py but in a different manner bc i didnt understand the "cite" cmments
 import csv
 
 #read input csv file and convert to TM 
