@@ -1,0 +1,31 @@
+#This is a program that is meant to do the same thing as ntm_tracer.py but in a different manner
+import csv
+
+
+#read input csv file and convert to TM 
+def parse_csv(file_path):
+    with open(file_path, 'r') as file:
+        csv_reader = csv.reader(file) #read data
+        name = next(csv_reader)[0] 
+        string_read = next(csv_reader)[0] 
+        states = next(csv_reader)[0].split(',') 
+        alphabet = next(csv_reader)[0].split(',') #sigma
+        tape_symbols = next(csv_reader)[0].split(',') 
+        start_state = next(csv_reader)[0] 
+        accept_state = next(csv_reader)[0]
+        reject_state = next(csv_reader)[0]
+
+        transitions = {} #written as: state, character/symbol -> list of (next state, write char/symbol, direction )        
+        for row in csv_reader:
+            curr_state,char, next_state, write_char, move_dir= row
+            transitions.setdefault((curr_state, char),[]).append((next_state, write_char, move_dir))
+    return { 'name': name,
+        'string_read': string_read,
+        'states':states,
+        'alphabet': alphabet,
+        'tape_symbols':tape_symbols,
+        'start_state': start_state,
+        'accept_state':accept_state,
+        'reject_state': reject_state,
+        'transitions': transitions, }
+
